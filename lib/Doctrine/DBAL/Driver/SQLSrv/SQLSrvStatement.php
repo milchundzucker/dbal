@@ -22,6 +22,7 @@ namespace Doctrine\DBAL\Driver\SQLSrv;
 use PDO;
 use IteratorAggregate;
 use Doctrine\DBAL\Driver\Statement;
+use Ramsey\Uuid\Uuid;
 
 /**
  * SQL Server Statement.
@@ -264,7 +265,7 @@ class SQLSrvStatement implements IteratorAggregate, Statement
                     SQLSRV_PHPTYPE_STREAM(SQLSRV_ENC_BINARY),
                     SQLSRV_SQLTYPE_VARBINARY('max'),
                 );
-            } elseif (PDO::PARAM_STR === $this->types[$column]) {
+            } elseif (PDO::PARAM_STR === $this->types[$column] || $variable instanceof Uuid) {
                 if ($variable !== null) {
                     $variable = (string) $variable;
                 }
